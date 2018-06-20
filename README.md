@@ -1,6 +1,6 @@
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/KeepSafe/TapTargetView/master/.github/video.gif" width="280" height="498" />
-<img src="https://github.com/aromajoin/material-showcase-ios/blob/master/art/material-showcase.gif" width="280" height="498" />
+<img src="https://github.com/aromajoin/material-showcase-ios/blob/master/art/material-showcase.gif" width="280" height="498" /><br/>
     NativeScript App Tour
 </h1>
 
