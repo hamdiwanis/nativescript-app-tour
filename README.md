@@ -1,7 +1,7 @@
 <h1 align="center">
+     NativeScript App Tour<br/>
 <img src="https://raw.githubusercontent.com/KeepSafe/TapTargetView/master/.github/video.gif" width="280" height="498" />
-<img src="https://github.com/aromajoin/material-showcase-ios/blob/master/art/material-showcase.gif" width="280" height="498" /><br/>
-    NativeScript App Tour
+<img src="https://github.com/aromajoin/material-showcase-ios/blob/master/art/material-showcase.gif" width="280" height="498" />
 </h1>
 
 > Note: This Plugin based on [MaterialShowcase for IOS](https://github.com/hamdiwanis/material-showcase-ios) and [TapTargetView for Android](https://github.com/KeepSafe/TapTargetView) .
