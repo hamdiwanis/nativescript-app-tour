@@ -1,0 +1,16 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" class="page" actionBarHidden="true" loaded="pageLoaded">
+  <FlexboxLayout flexDirection="column" height="100%" width="100%" alignItems="stretch" justifyContent="space-between">
+    <FlexboxLayout padding="20"  flexShrink="0" alignItems="stretch" justifyContent="space-between">
+      <Label id="feat5" text="Feature 5" padding="20"></Label>
+      <Label id="feat4" text="Feature 4" padding="20"></Label>
+    </FlexboxLayout>
+    <FlexboxLayout flexDirection="column" flexGrow="1"  flexShrink="0" alignItems="center" justifyContent="center">
+      <Label id="feat3" text="Feature 3" padding="20"></Label>
+      <Button text="start" tap="{{ startTour }}"></Button>
+    </FlexboxLayout>
+    <FlexboxLayout padding="20" flexShrink="0" alignItems="stretch" justifyContent="space-between">
+      <Label id="feat1" text="Feature 1" padding="20"></Label>
+      <Label id="feat2" text="Feature 2" padding="20"></Label>
+    </FlexboxLayout>
+  </FlexboxLayout>
+</Page>
