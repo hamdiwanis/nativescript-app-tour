@@ -18,6 +18,7 @@ export class AppTour extends AppTourBase {
                 .descriptionTextColorInt(new Color(stop.descriptionTextColor|| this.defaults.descriptionTextColor).android)
                 .cancelable(stop.dismissable)
                 .drawShadow(true)
+                .tintTarget(false)
                 .targetRadius(stop.innerCircleRadius|| this.defaults.innerCircleRadius);
         });
 
