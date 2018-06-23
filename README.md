@@ -44,6 +44,42 @@ startTour(){
 
 see the demo project for more info.
 
+## Angular
+also in angular you can get a refrence to the target view using ```@ViewChild``` decorator as next
+```html
+<Label #feat1 text="Feature 1"></Label>
+<Label #feat2 text="Feature 2"></Label>
+<Button text="start" tap="{{ startTour }}"></Button>
+```
+
+```
+@ViewChild('feat1') feat1: ElementRef;
+@ViewChild('feat2') feat2: ElementRef;
+
+startTour(){
+
+    const stops = [
+        {
+            view: this.feat1.nativeElement,
+            title: 'Feature 1',
+            description: "Feature 1 Description",
+            dismissable: true
+        },
+        {
+            view: this.feat2.nativeElement,
+            title: 'Feature 2',
+            description: 'Feature 2 Description',
+            outerCircleColor: 'orange',
+            rippleColor: 'black'
+        }
+    ];
+
+    this.tour = new AppTour(stops);
+    this.tour.show();
+}
+```
+
+
 ## TourStop
 |Param| Description | type | default |
 |---|---|---|---|
