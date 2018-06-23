@@ -11,7 +11,7 @@
 tns plugin add nativescript-app-tour
 ```
 
-### Example
+### Usage
 ```html
 <Label id="feat1" text="Feature 1"></Label>
 <Label id="feat2" text="Feature 2"></Label>
@@ -79,6 +79,7 @@ startTour(){
 }
 ```
 
+## API
 
 ## TourStop
 |Param| Description | type | default |
@@ -102,6 +103,9 @@ startTour(){
 |constructor | AppTour(stops) |
 |show() | start the tour|
 |reset()| reset the tour to play it again|
+
+## Defaults
+> Note: If you use the same configs (colors, sizes,..etc) in all stops customize the defaults instead using AppTour defaults property which is basicly a TourStop :+1: .
 
 ## Next
 - [ ] add events.
