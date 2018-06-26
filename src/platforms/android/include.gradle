@@ -1,0 +1,7 @@
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'com.getkeepsafe.taptargetview:taptargetview:1.11.0'
+}
