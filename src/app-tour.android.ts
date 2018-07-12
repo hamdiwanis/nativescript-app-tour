@@ -11,6 +11,7 @@ export class AppTour extends AppTourBase {
         const targets: any[] = stops.map(stop => {
             return TapTarget.forView(stop.view.android, stop.title, stop.description|| this.defaults.description)
                 .outerCircleColorInt(new Color(stop.outerCircleColor|| this.defaults.outerCircleColor).android)
+                .outerCircleAlpha(float(stop.outerCircleOpacity|| this.defaults.outerCircleOpacity))
                 .targetCircleColorInt(new Color(stop.innerCircleColor|| this.defaults.innerCircleColor).android)
                 .titleTextSize(stop.titleTextSize|| this.defaults.titleTextSize)
                 .titleTextColorInt(new Color(stop.titleTextColor|| this.defaults.titleTextColor).android)

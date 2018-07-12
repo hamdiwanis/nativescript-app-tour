@@ -7,6 +7,7 @@ export interface TourStop {
     descriptionTextSize?: number;
     descriptionTextColor?: string;
     outerCircleColor?: string;
+    outerCircleOpacity?: number;
     innerCircleColor?: string;
     rippleColor?: string; // ios-only
     innerCircleRadius?: number;
@@ -24,6 +25,7 @@ export class AppTour {
         description: 'description',
         descriptionTextSize: 20,
         descriptionTextColor: 'white',
+        outerCircleOpacity: 0.96,
         outerCircleColor: 'black',
         innerCircleColor: 'white',
         rippleColor: 'white', // ios-only

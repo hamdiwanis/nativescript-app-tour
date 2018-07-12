@@ -27,6 +27,7 @@ export class AppTour extends AppTourBase {
         this.nativeTour.secondaryTextSize = stop.descriptionTextSize|| this.defaults.descriptionTextSize;
 
         this.nativeTour.backgroundPromptColor = new Color(stop.outerCircleColor|| this.defaults.outerCircleColor).ios;
+        this.nativeTour.backgroundPromptColorAlpha = stop.outerCircleOpacity|| this.defaults.outerCircleOpacity;
         this.nativeTour.targetHolderColor = new Color(stop.innerCircleColor|| this.defaults.innerCircleColor).ios;
         this.nativeTour.targetHolderRadius = stop.innerCircleRadius|| this.defaults.innerCircleRadius;
         this.nativeTour.aniRippleColor = new Color(stop.rippleColor|| this.defaults.rippleColor).ios;

@@ -91,6 +91,7 @@ startTour(){
 | description| stop description | string| description|
 | descriptionTextSize| description Text Size| number| 20|
 | descriptionTextColor| description Text Color| string| white|
+| outerCircleOpacity| outer Circle background opacity| number| 0.96|
 | outerCircleColor| outer Circle background Color | string| black|
 | innerCircleColor| circle around target view background Color | string| white|
 | rippleColor (ios only)| target Circle ripple Color| string| white|
