@@ -15,7 +15,8 @@ export class MainViewModel extends Observable {
                 view: this.page.getViewById("feat1"),
                 title: 'Feature 1',
                 description: "Feature 1 Description",
-                dismissable: true
+                dismissable: true,
+                outerCircleOpacity: 0.1
             },
             {
                 view: this.page.getViewById("feat2"),
