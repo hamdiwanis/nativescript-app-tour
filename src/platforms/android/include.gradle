@@ -1,7 +1,8 @@
 repositories {
     jcenter()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    compile 'com.getkeepsafe.taptargetview:taptargetview:1.11.0'
+    compile 'com.github.shiv19:TapTargetView:-SNAPSHOT'
 }

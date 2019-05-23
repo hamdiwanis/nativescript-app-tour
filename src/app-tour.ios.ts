@@ -2,18 +2,12 @@ import { AppTour as  AppTourBase, TourStop } from './app-tour.common';
 import { Color } from 'tns-core-modules/color';
 import { ios } from 'tns-core-modules/application';
 
-declare let MaterialShowcase, MaterialShowcaseDelegate;
-
-
 export class AppTour extends AppTourBase {
     stopIndex;
 
     buildNativeTour(stops: TourStop[]) {
         const stop = stops[this.stopIndex];
-
-        const container = ios.window;
-        this.nativeTour = MaterialShowcase.alloc().initWithContainer(container);
-
+        this.nativeTour = MaterialShowcase.alloc().init();
         this.nativeTour.setTargetViewWithView(stop.view.ios);
         this.nativeTour.isTapRecognizerForTagretView = !stop.dismissable;
         this.nativeTour.delegate = AppTourDelegate.initWithOwner(new WeakRef(this));
@@ -34,7 +28,8 @@ export class AppTour extends AppTourBase {
     }
 
     show() {
-        this.nativeTour.showWithAnimatedCompletion(true, () => {});
+        const container = ios.window;
+        this.nativeTour.showWithAnimatedCompletionContainer(true, () => {}, container);
     }
 
     next() {
