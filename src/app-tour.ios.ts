@@ -3,47 +3,47 @@ import { Color } from 'tns-core-modules/color';
 import { ios } from 'tns-core-modules/application';
 
 export class AppTour extends AppTourBase {
-    stopIndex;
-
+    currentIndex = 0;
     buildNativeTour(stops: TourStop[]) {
-        const stop = stops[this.stopIndex];
-        this.nativeTour = MaterialShowcase.alloc().init();
-        this.nativeTour.setTargetViewWithView(stop.view.ios);
-        this.nativeTour.isTapRecognizerForTagretView = !stop.dismissable;
-        this.nativeTour.delegate = AppTourDelegate.initWithOwner(new WeakRef(this));
+        this.currentIndex = 0;
+        const nativeStops = stops.map(stop => {
+            const nativeStop: MaterialShowcase = MaterialShowcase.alloc().init();
+            nativeStop.setTargetViewWithView(stop.view.ios);
+            nativeStop.isTapRecognizerForTargetView = false; // !stop.dismissable;
+            nativeStop.delegate = AppTourDelegate.initWithOwner(new WeakRef(this));
+            
+            nativeStop.primaryText = stop.title;
+            nativeStop.primaryTextColor = new Color(stop.titleTextColor|| this.defaults.titleTextColor).ios;
+            nativeStop.primaryTextSize = stop.titleTextSize|| this.defaults.titleTextSize;
 
-        this.nativeTour.primaryText = stop.title;
-        this.nativeTour.primaryTextColor = new Color(stop.titleTextColor|| this.defaults.titleTextColor).ios;
-        this.nativeTour.primaryTextSize = stop.titleTextSize|| this.defaults.titleTextSize;
+            nativeStop.secondaryText = stop.description|| this.defaults.description;
+            nativeStop.secondaryTextColor = new Color(stop.descriptionTextColor|| this.defaults.descriptionTextColor).ios;
+            nativeStop.secondaryTextSize = stop.descriptionTextSize|| this.defaults.descriptionTextSize;
 
-        this.nativeTour.secondaryText = stop.description|| this.defaults.description;
-        this.nativeTour.secondaryTextColor = new Color(stop.descriptionTextColor|| this.defaults.descriptionTextColor).ios;
-        this.nativeTour.secondaryTextSize = stop.descriptionTextSize|| this.defaults.descriptionTextSize;
+            nativeStop.backgroundPromptColor = new Color(stop.outerCircleColor|| this.defaults.outerCircleColor).ios;
+            nativeStop.backgroundPromptColorAlpha = stop.outerCircleOpacity|| this.defaults.outerCircleOpacity;
+            nativeStop.targetHolderColor = new Color(stop.innerCircleColor|| this.defaults.innerCircleColor).ios;
+            nativeStop.targetHolderRadius = stop.innerCircleRadius|| this.defaults.innerCircleRadius;
+            nativeStop.aniRippleColor = new Color(stop.rippleColor|| this.defaults.rippleColor).ios;
 
-        this.nativeTour.backgroundPromptColor = new Color(stop.outerCircleColor|| this.defaults.outerCircleColor).ios;
-        this.nativeTour.backgroundPromptColorAlpha = stop.outerCircleOpacity|| this.defaults.outerCircleOpacity;
-        this.nativeTour.targetHolderColor = new Color(stop.innerCircleColor|| this.defaults.innerCircleColor).ios;
-        this.nativeTour.targetHolderRadius = stop.innerCircleRadius|| this.defaults.innerCircleRadius;
-        this.nativeTour.aniRippleColor = new Color(stop.rippleColor|| this.defaults.rippleColor).ios;
+            return nativeStop;
+        });
+
+        this.nativeTour = new MaterialShowcaseSequence()
+        nativeStops.forEach(stop => {
+            this.nativeTour.temp(stop);
+        });
     }
 
     show() {
-        const container = ios.window;
-        this.nativeTour.showWithAnimatedCompletionContainer(true, () => {}, container);
+        this.nativeTour.start();
     }
 
     next() {
-        if (this.stopIndex >= this.stops.length - 1) {
-            return;
-        }
-
-        this.stopIndex++;
-        this.buildNativeTour(this.stops);
-        this.show();
+        this.nativeTour.showCaseWillDismis();
     }
 
     reset() {
-        this.stopIndex = 0;
         this.buildNativeTour(this.stops);
     }
 }
@@ -65,10 +65,15 @@ export class AppTourDelegate extends NSObject {
     showCaseWillDismissWithShowcaseDidTapTarget(showcase, didTapTarget) {}
 
     showCaseDidDismissWithShowcaseDidTapTarget(showcase, didTapTarget) {
-        if(didTapTarget){
+        if (this.owner.currentIndex + 1 === this.owner.stops.length) {
+            // tourended
+            this.owner.handlers.onStep(this.owner.currentIndex);
+            this.owner.handlers.finish();
+        } else if (didTapTarget) {
             this.owner.next();
-        }else{
-            this.owner.reset();
+            this.owner.handlers.onStep(this.owner.currentIndex++);
+        } else {
+            this.owner.handlers.onCancel(this.owner.currentIndex++);
         }
 
     }

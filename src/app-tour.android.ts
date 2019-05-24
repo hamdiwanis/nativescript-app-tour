@@ -7,8 +7,11 @@ let TapTarget = com.getkeepsafe.taptargetview.TapTarget;
 let TapTargetSequence = com.getkeepsafe.taptargetview.TapTargetSequence;
 
 export class AppTour extends AppTourBase {
-    buildNativeTour(stops: TourStop[]) {
+    currentStop = 0;
+    buildNativeTour(stops: TourStop[], handlers) {
         const targets: any[] = stops.map(stop => {
+            this.currentStop = 0;
+
             return TapTarget.forView(stop.view.android, stop.title, stop.description|| this.defaults.description)
                 .outerCircleColorInt(new Color(stop.outerCircleColor|| this.defaults.outerCircleColor).android)
                 .outerCircleAlpha(float(stop.outerCircleOpacity|| this.defaults.outerCircleOpacity))
@@ -25,6 +28,17 @@ export class AppTour extends AppTourBase {
 
         this.nativeTour = new TapTargetSequence(android.foregroundActivity);
         this.nativeTour.targets(java.util.Arrays.asList(targets));
+        this.nativeTour.listener(new TapTargetSequence.Listener({
+            onSequenceFinish: function() {
+                handlers.finish();
+            }.bind(this),
+            onSequenceStep: function() {
+                handlers.onStep(this.currentStop++);
+            }.bind(this),
+            onSequenceCanceled: function() {
+                handlers.onCancel(this.currentStop++);
+            }.bind(this)
+        }));
     }
 
     show() {
@@ -32,6 +46,6 @@ export class AppTour extends AppTourBase {
     }
 
     reset() {
-        this.buildNativeTour(this.stops);
+        this.buildNativeTour(this.stops, this.handlers);
     }
 }
