@@ -15,7 +15,7 @@ export class MainViewModel extends Observable {
                 view: this.page.getViewById("feat1"),
                 title: 'Feature 1',
                 description: "Feature 1 Description",
-                dismissable: true,
+                dismissable: false,
                 outerCircleOpacity: 0.1
             },
             {
@@ -24,7 +24,7 @@ export class MainViewModel extends Observable {
                 description: 'Feature 2 Description',
                 outerCircleColor: 'orange',
                 rippleColor: 'black',
-                dismissable: true,
+                dismissable: false,
             },
             {
                 view: this.page.getViewById("feat3"),
@@ -32,7 +32,7 @@ export class MainViewModel extends Observable {
                 description: 'Feature 3 Description',
                 outerCircleColor: 'red',
                 rippleColor: 'black',
-                dismissable: true,
+                dismissable: false,
             },
             {
                 view: this.page.getViewById("feat4"),
@@ -40,7 +40,7 @@ export class MainViewModel extends Observable {
                 description: 'Feature 4 Description',
                 outerCircleColor: 'gold',
                 rippleColor: 'black',
-                dismissable: true,
+                dismissable: false,
             },
             {
                 view: this.page.getViewById("feat5"),

@@ -9,7 +9,7 @@ export class AppTour extends AppTourBase {
         const nativeStops = stops.map(stop => {
             const nativeStop: MaterialShowcase = MaterialShowcase.alloc().init();
             nativeStop.setTargetViewWithView(stop.view.ios);
-            nativeStop.isTapRecognizerForTargetView = false; // !stop.dismissable;
+            nativeStop.isTapRecognizerForTargetView = !stop.dismissable;
             nativeStop.delegate = AppTourDelegate.initWithOwner(new WeakRef(this));
             
             nativeStop.primaryText = stop.title;
@@ -72,7 +72,7 @@ export class AppTourDelegate extends NSObject {
         } else if (didTapTarget) {
             this.owner.next();
             this.owner.handlers.onStep(this.owner.currentIndex++);
-        } else {
+        } else if (this.owner.stops[this.owner.currentIndex].dismissable) {
             this.owner.handlers.onCancel(this.owner.currentIndex++);
         }
 
