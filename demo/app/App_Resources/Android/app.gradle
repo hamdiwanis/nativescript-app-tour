@@ -1,16 +1,43 @@
-// Add your native dependencies here:
-
-// Uncomment to add recyclerview-v7 dependency
-//dependencies {
-//	compile 'com.android.support:recyclerview-v7:+'
-//}
+dependencies {
+    configurations.all {
+        exclude group: 'commons-logging', module: 'commons-logging'
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support' && requested.name != 'multidex') {
+                // com.android.support major version should match buildToolsVersion
+                details.useVersion '28.+'
+            }
+        }
+    }
+}
+ 
+project.ext {
+    googlePlayServicesVersion = "16.+"
+    supportVersion = "28.+"
+}
 
 android {  
   defaultConfig {  
     generatedDensities = []
-    applicationId = "org.nativescript.demo"  
-  }  
-  aaptOptions {  
-    additionalParameters "--no-version-vectors"  
-  }  
+    applicationId = "org.nativescript.demo" 
+    multiDexEnabled = true 
+  }
+  lintOptions {
+        checkReleaseBuilds false
+    }
 } 
+def settingsGradlePath
+
+if(project.hasProperty("appResourcesPath")){
+    settingsGradlePath = "$project.appResourcesPath/Android/settings.gradle";
+} else {
+    settingsGradlePath = "$rootDir/../../app/App_Resources/Android/settings.gradle";
+}
+
+
+def settingsGradleFile = new File(settingsGradlePath);
+
+if(settingsGradleFile.exists())
+{
+    apply from: settingsGradleFile;
+}

@@ -21,7 +21,7 @@ tns plugin add nativescript-app-tour
 ```
 startTour(){
 
-    const stops = [
+    const stops: TourStop[] = [
         {
             view: this.page.getViewById("feat1"),
             title: 'Feature 1',
@@ -37,7 +37,19 @@ startTour(){
         }
     ];
 
-    this.tour = new AppTour(stops);
+    const handlers: TourEvents = {
+        finish() {
+            console.log('Tour finished');
+        },
+        onStep(lastStopIndex) {
+            console.log('User stepped', lastStopIndex);
+        },
+        onCancel(lastStopIndex) {
+            console.log('User cancelled', lastStopIndex);
+        }
+    }
+
+    this.tour = new AppTour(stops, handlers);
     this.tour.show();
 }
 ```
@@ -58,7 +70,7 @@ also in angular you can get a refrence to the target view using ```@ViewChild```
 
 startTour(){
 
-    const stops = [
+    const stops: TourStop[] = [
         {
             view: this.feat1.nativeElement,
             title: 'Feature 1',
@@ -74,7 +86,19 @@ startTour(){
         }
     ];
 
-    this.tour = new AppTour(stops);
+    const handlers: TourEvents = {
+        finish() {
+            console.log('Tour finished');
+        },
+        onStep(lastStopIndex) {
+            console.log('User stepped', lastStopIndex);
+        },
+        onCancel(lastStopIndex) {
+            console.log('User cancelled', lastStopIndex);
+        }
+    }
+
+    this.tour = new AppTour(stops, handlers);
     this.tour.show();
 }
 ```
@@ -105,11 +129,18 @@ startTour(){
 |show() | start the tour|
 |reset()| reset the tour to play it again|
 
+## Tour Events
+
+This plugin has 3 events,
+finish(): void => triggered once the tour finishes
+onStep(lastStepIndex): void => triggered once per step when target is tapped
+onCancel(lastStepIndex): void => triggered once when user dismisses the tour by tapping outside in a dismissable tour
+
 ## Defaults
 > Note: If you use the same configs (colors, sizes,..etc) in all stops customize the defaults instead using AppTour defaults property which is basicly a TourStop :+1: .
 
 ## Next
-- [ ] add events.
+- [x] add events.
 - [ ] add more options to TourStop.
 
 ## Contribute

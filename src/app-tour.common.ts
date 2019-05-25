@@ -14,8 +14,15 @@ export interface TourStop {
     dismissable?: boolean;
 }
 
+export interface TourEvents {
+    finish?: Function,
+    onStep?: Function,
+    onCancel?: Function
+}
+
 export class AppTour {
     nativeTour;
+    handlers;
 
     defaults: TourStop = {
         view: null,
@@ -33,18 +40,31 @@ export class AppTour {
         dismissable: false
     };
 
-    constructor(public stops: TourStop[]) {
+    defaultHandlers: TourEvents = {
+        finish() {},
+        onStep(lastStepNative) {},
+        onCancel(lastStepNative) {}
+    }
+
+    constructor(public stops: TourStop[], handlers?: TourEvents) {
+        if (handlers) {
+            handlers.finish = handlers.finish || this.defaultHandlers.finish;
+            handlers.onStep = handlers.onStep || this.defaultHandlers.onStep;
+            handlers.onCancel = handlers.onCancel || this.defaultHandlers.onCancel;
+        }
+        this.stops = stops;
+        this.handlers = handlers || this.defaultHandlers;
         this.reset();
-        this.buildNativeTour(stops);
+        this.buildNativeTour(stops, this.handlers);
     }
 
     updateStops(stops: TourStop[]) {
         this.stops = stops;
         this.reset();
-        this.buildNativeTour(stops);
+        this.buildNativeTour(stops, this.handlers);
     }
 
-    buildNativeTour(stops: TourStop[]) {}
+    buildNativeTour(stops: TourStop[], handlers: TourEvents) {}
 
     show() {}
 

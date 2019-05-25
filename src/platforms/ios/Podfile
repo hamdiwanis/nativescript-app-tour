@@ -1,4 +1,4 @@
-pod 'MaterialShowcase', :git => 'https://github.com/shiv19/material-showcase-ios.git'
+pod 'MaterialShowcase', :git => 'https://github.com/shiv19/material-showcase-ios.git', :branch => 'nativescript'
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
