@@ -36,7 +36,8 @@ export class AppTour extends AppTourBase {
     }
 
     show() {
-        this.nativeTour.start();
+        const randomKey = Math.random().toString(36).substring(7);
+        this.nativeTour.setKeyWithKey(randomKey).start();
     }
 
     next() {
@@ -62,7 +63,8 @@ export class AppTourDelegate extends NSObject {
         return delegate;
     }
 
-    showCaseWillDismissWithShowcaseDidTapTarget(showcase, didTapTarget) {}
+    showCaseWillDismissWithShowcaseDidTapTarget(showcase, didTapTarget) {
+    }
 
     showCaseDidDismissWithShowcaseDidTapTarget(showcase, didTapTarget) {
         if (this.owner.currentIndex + 1 === this.owner.stops.length) {

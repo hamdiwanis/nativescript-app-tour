@@ -12,6 +12,7 @@ src/node_modules/
 !src/index.d.ts
 !src/references.d.ts
 !src/scripts/*.js
+!src/typings/objc!MaterialShowcase.d.ts
 demo/lib
 demo/platforms
 demo/node_modules
