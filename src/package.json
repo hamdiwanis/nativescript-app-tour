@@ -1,6 +1,6 @@
 {
     "name": "nativescript-app-tour",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "description": "NativeScript plugin for building a tour, showcase or a walkthrough for your app.",
     "main": "app-tour",
     "typings": "index.d.ts",
