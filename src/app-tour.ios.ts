@@ -4,13 +4,15 @@ import { ios } from 'tns-core-modules/application';
 
 export class AppTour extends AppTourBase {
     currentIndex = 0;
+    delegate = AppTourDelegate.initWithOwner(new WeakRef(this));
     buildNativeTour(stops: TourStop[]) {
         this.currentIndex = 0;
+        
         const nativeStops = stops.map(stop => {
             const nativeStop: MaterialShowcase = MaterialShowcase.alloc().init();
             nativeStop.setTargetViewWithView(stop.view.ios);
             nativeStop.isTapRecognizerForTargetView = !stop.dismissable;
-            nativeStop.delegate = AppTourDelegate.initWithOwner(new WeakRef(this));
+            nativeStop.delegate = this.delegate;
             
             nativeStop.primaryText = stop.title;
             nativeStop.primaryTextColor = new Color(stop.titleTextColor|| this.defaults.titleTextColor).ios;
@@ -28,8 +30,7 @@ export class AppTour extends AppTourBase {
 
             return nativeStop;
         });
-
-        this.nativeTour = new MaterialShowcaseSequence()
+        this.nativeTour = new MaterialShowcaseSequence();
         nativeStops.forEach(stop => {
             this.nativeTour.temp(stop);
         });
@@ -51,6 +52,7 @@ export class AppTour extends AppTourBase {
 export class AppTourDelegate extends NSObject {
     public static ObjCProtocols = [MaterialShowcaseDelegate];
     private _owner: WeakRef<AppTour>;
+
 
     get owner(): AppTour {
         return this._owner.get();
