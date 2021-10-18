@@ -1,6 +1,6 @@
 import { AppTour as  AppTourBase, TourStop } from './app-tour.common';
-import { Color } from 'tns-core-modules/color';
-import { android } from 'tns-core-modules/application';
+import { Color } from '@nativescript/core/color';
+import { android } from '@nativescript/core/application';
 
 declare let com;
 let TapTarget = com.getkeepsafe.taptargetview.TapTarget;
