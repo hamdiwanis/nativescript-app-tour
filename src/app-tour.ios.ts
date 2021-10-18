@@ -1,6 +1,6 @@
 import { AppTour as  AppTourBase, TourStop } from './app-tour.common';
-import { Color } from 'tns-core-modules/color';
-import { ios } from 'tns-core-modules/application';
+import { Color } from '@nativescript/core/color';
+import { ios } from '@nativescript/core/application';
 
 export class AppTour extends AppTourBase {
     currentIndex = 0;
