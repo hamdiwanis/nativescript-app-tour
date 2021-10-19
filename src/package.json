@@ -6,8 +6,8 @@
     "typings": "index.d.ts",
     "nativescript": {
         "platforms": {
-            "android": "5.3.1",
-            "ios": "5.3.1"
+            "android": "7.0.0",
+            "ios": "7.0.0"
         }
     },
     "scripts": {
@@ -58,9 +58,10 @@
     "homepage": "https://github.com/hamdiwanis/nativescript-app-tour",
     "readmeFilename": "README.md",
     "devDependencies": {
-        "tns-core-modules": "^5.3.2",
-        "tns-platform-declarations": "^5.4.1",
-        "typescript": "~2.3.0",
+        "@nativescript/core": "^7.0.12",
+        "@nativescript/types": "^7.0.4",
+        "@nativescript/webpack": "^3.0.8",
+        "typescript": "~3.9.0",
         "prompt": "^1.0.0",
         "rimraf": "^2.5.0",
         "tslint": "^5.0.0",
