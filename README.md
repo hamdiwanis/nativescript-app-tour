@@ -64,7 +64,7 @@ startTour(){
 
 see the demo project for more info.
 
-## Angular
+### Angular
 also in angular you can get a refrence to the target view using ```@ViewChild``` decorator as next
 ```html
 <Label #feat1 text="Feature 1"></Label>
@@ -111,9 +111,69 @@ startTour(){
 }
 ```
 
+### Vue
+While for Angular the {N} view representations of a referenced ViewChild is in the `.nativeElement` property, the naming in {N}-vue is a little confusing, since the {N} view of a referenced child is in `.nativeView`. Meaning that:
+- `this.$ref.feat1` return the vue view of the child object
+- `this.$ref.feat1.nativeView` returns the {N} view, **which we need to pass as a `stop.view`**
+- (`this.$ref.feat1.nativeView.nativeView` returns the _actual_ native view)
+```html
+<Label ref="feat1" text="Feature 1"></Label>
+<Label ref="feat2" text="Feature 2"></Label>
+<Button text="start" @tap="startTour"></Button>
+```
+
+```
+startTour(){
+
+    const stops = [
+        {
+            view: this.$ref.feat1.nativeView,
+            title: 'Feature 1',
+            description: "Feature 1 Description",
+            dismissable: true
+        },
+        {
+            view: this.$ref.feat2.nativeView,
+            title: 'Feature 2',
+            description: 'Feature 2 Description',
+            outerCircleColor: 'orange',
+            rippleColor: 'black'
+        }
+    ];
+
+    const handlers = {
+        finish() {
+            console.log('Tour finished');
+        },
+        onStep(lastStopIndex) {
+            console.log('User stepped', lastStopIndex);
+        },
+        onCancel(lastStopIndex) {
+            console.log('User cancelled', lastStopIndex);
+        }
+    }
+
+    this.tour = new AppTour(stops, handlers);
+    this.tour.show();
+}
+```
+
+### Special cases on Android (ActionBar, TabView)
+There are some special {N} UI Elements that cannot be accessed by simply using the {N} view of these objects, because it will result in an error `Cannot convert object to Landroid/view/View`.
+
+An example for that is `<ActionBar>` and `<ActionItem>`. To access these, one has to find the nativeView by searching the right child of a referenced objects parent:
+
+```
+const stops = [{
+    view: page.getViewById("actionItem").parent.nativeView.getChildAt(0).getChildAt(0),
+    title: "Action Item",
+    description: "Some Description"
+}]
+```
+This is similar for `<TabView>` and `<TabViewItem>` and might also be for other special items.
 ## API
 
-## TourStop
+### TourStop
 |Param| Description | type | default |
 |---|---|---|---|
 | view (required) | nativescript view ref | View | none |
@@ -130,14 +190,14 @@ startTour(){
 | innerCircleRadius|circle around target view raduis| number| 50|
 | dismissable| can the tour canceled by taping outside of target view | boolean| false|
 
-## AppTour
+### AppTour
 |Method| Description |
 |---|---|
 |constructor | AppTour(stops) |
 |show() | start the tour|
 |reset()| reset the tour to play it again|
 
-## Tour Events
+### Tour Events
 
 This plugin has 3 events,
 finish(): void => triggered once the tour finishes

@@ -11,8 +11,7 @@ export class AppTour extends AppTourBase {
     buildNativeTour(stops: TourStop[], handlers) {
         const targets: any[] = stops.map(stop => {
             this.currentStop = 0;
-
-            return TapTarget.forView(stop.view.android, stop.title, stop.description|| this.defaults.description)
+            return TapTarget.forView(stop.view.nativeView || stop.view.android || stop.view, stop.title, stop.description|| this.defaults.description)
                 .outerCircleColorInt(new Color(stop.outerCircleColor|| this.defaults.outerCircleColor).android)
                 .outerCircleAlpha(float(stop.outerCircleOpacity|| this.defaults.outerCircleOpacity))
                 .targetCircleColorInt(new Color(stop.innerCircleColor|| this.defaults.innerCircleColor).android)

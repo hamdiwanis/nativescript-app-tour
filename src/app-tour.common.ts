@@ -1,5 +1,5 @@
 export interface TourStop {
-    view: { ios, android };
+    view: { ios, android, nativeView };
     title: string;
     titleTextSize?: number;
     titleTextColor?: string;
