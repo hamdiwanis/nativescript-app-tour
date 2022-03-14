@@ -4,5 +4,5 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.shiv19:TapTargetView:-SNAPSHOT'
+    implementation 'com.github.shiv19:TapTargetView:-SNAPSHOT'
 }
