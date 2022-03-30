@@ -7,10 +7,16 @@
 > Note: This Plugin based on [MaterialShowcase for IOS](https://github.com/hamdiwanis/material-showcase-ios) and [TapTargetView for Android](https://github.com/KeepSafe/TapTargetView) .
 
 ## Installation
-For NS7+:
+For NS8+:
 
 ```bash
 tns plugin add nativescript-app-tour
+```
+
+For NS7+:
+
+```bash
+tns plugin add nativescript-app-tour@3.1.0
 ```
 
 For older NS versions:
